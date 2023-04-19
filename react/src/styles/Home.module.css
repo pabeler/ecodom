@@ -195,6 +195,16 @@
   background-clip: content-box;
 }
 
+.formGroup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10px;
+  color: white;
+}
+
 .form .formField{
   display: flex;
   flex-direction: column;
@@ -202,6 +212,7 @@
   justify-content: center;
   width: 100%;
   margin-bottom: 10px;
+  padding: 10px;
 }
 
 /* Enable hover only on non-touch devices */

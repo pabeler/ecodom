@@ -6,7 +6,7 @@ import {Button, TextField} from '@mui/material';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Dashboard() {
   return (
     <>
       <Head>
