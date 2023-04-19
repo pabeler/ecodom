@@ -4,10 +4,15 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import {Button, TextField, Item} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-
+import { useState } from 'react';
+import Settings from '@/components/Settings';
+import AddDevice from '@/components/AddDevice';
+import DeviceList from '@/components/DeviceList';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Dashboard() {
+    const [currentTab, setCurrentTab] = useState("default");
+
   return (
     <>
       <Head>
@@ -24,18 +29,26 @@ export default function Dashboard() {
         </div>
         <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
             <Grid xs="auto">
-                <Button variant="contained" color="primary">Dodaj urządzenie</Button>
+                <Button variant="contained" color="primary" onClick={() => setCurrentTab("addDevice")}>Dodaj urządzenie</Button>
             </Grid>
             <Grid xs="auto">
-                <Button variant="contained" color="primary">Lista urządzeń</Button>
+                <Button variant="contained" color="primary" onClick={() => setCurrentTab("deviceList")}>Lista urządzeń</Button>
             </Grid>
             <Grid xs="auto">
-                <Button variant="contained" color="primary">Contained</Button>
-            </Grid>
-            <Grid xs="auto">
-                <Button variant="contained" color="primary">Contained</Button>
+                <Button variant="contained" color="primary" onClick={() => setCurrentTab("settings")}>Ustawienia</Button>
             </Grid>
         </Grid>
+
+        {currentTab == "addDevice" && (
+            <AddDevice/>
+        )}
+        {currentTab == "deviceList" && (
+            <DeviceList/>
+        )}
+        {currentTab == "settings" && (
+            <Settings/>
+        )}
+
         
         
       </main>
