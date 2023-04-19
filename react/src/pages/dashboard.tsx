@@ -2,7 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import {Button, TextField} from '@mui/material';
+import {Button, TextField, Item} from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,17 +22,21 @@ export default function Dashboard() {
               Projekt EcoDom+
           </p>
         </div>
-
-        <div className={styles.center}>
-          
-            <form className={styles.form}>
-              <div className={styles.formGroup}>
-                <input className={styles.formField} type="email" id="email" name="email" placeholder='Adres email' /><br /> 
-                <input className={styles.formField} type="password" id="password" name="password" placeholder='Hasło'/><br /> 
-                <Button variant="contained">Login</Button>
-              </div>
-            </form>
-          </div>
+        <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Grid xs="auto">
+                <Button variant="contained" color="primary">Dodaj urządzenie</Button>
+            </Grid>
+            <Grid xs="auto">
+                <Button variant="contained" color="primary">Lista urządzeń</Button>
+            </Grid>
+            <Grid xs="auto">
+                <Button variant="contained" color="primary">Contained</Button>
+            </Grid>
+            <Grid xs="auto">
+                <Button variant="contained" color="primary">Contained</Button>
+            </Grid>
+        </Grid>
+        
         
       </main>
     </>

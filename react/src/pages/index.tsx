@@ -7,6 +7,15 @@ import {Button, TextField} from '@mui/material';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  let login = () => {
+    let email = document.getElementById('email') as HTMLInputElement;
+    let password = document.getElementById('password') as HTMLInputElement;
+    if(email.value == 'admin' && password.value == 'admin'){
+      window.location.href = '/dashboard';
+    } 
+  };
+
   return (
     <>
       <Head>
@@ -28,7 +37,7 @@ export default function Home() {
               <div className={styles.formGroup}>
                 <input className={styles.formField} type="email" id="email" name="email" placeholder='Adres email' /><br /> 
                 <input className={styles.formField} type="password" id="password" name="password" placeholder='Hasło'/><br /> 
-                <Button variant="contained">Login</Button>
+                <Button variant="contained" onClick={login}>Login</Button>
               </div>
             </form>
           </div>
