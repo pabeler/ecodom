@@ -1,18 +1,25 @@
 import styles from "@/styles/Home.module.css";
 import {Button} from "@mui/material";
 import { Grid, Text } from '@nextui-org/react';
+import axios from "axios";
 
 export default function addDevice() {
-    let add = () => {
+    let add = async () => {
         let name = document.getElementById('device_name') as HTMLInputElement;
         let power = document.getElementById('device_power') as HTMLInputElement;
         let avg_time_hour = document.getElementById('avg_time_hour') as HTMLInputElement;
-        let avg_time_minute = document.getElementById('avg_time_minute') as HTMLInputElement;
+        let avg_time_minute = document.getElementById('avg_time_minutes') as HTMLInputElement;
         if (avg_time_hour.value == "24" && avg_time_minute.value != "0") {
             alert("Niepoprawny czas użycia");
             return;
         }
-        let avg_time = parseInt(avg_time_hour.value) * 60 + parseInt(avg_time_minute.value);
+        try {
+            await axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
+                maxPower: power.value, room: "1", avgUsageHours: avg_time_hour.value, avgUsageMinutes: avg_time_minute.value})
+            console.log("Dodano urządzenie");
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (
@@ -38,7 +45,7 @@ export default function addDevice() {
                                    placeholder={"godz"} min={"0"} max={"24"} required/>
                         </Grid>
                         <Grid xs={6}>
-                            <input className={styles.formField} type="number" id="avg_time_minutes" name="avg_time_hour"
+                            <input className={styles.formField} type="number" id="avg_time_minutes" name="avg_time_minutes"
                                    placeholder={"min"} min={0} max={59} required/>
                         </Grid>
                         <Grid xs={12}>

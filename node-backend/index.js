@@ -67,7 +67,7 @@ app.post('/devices', async (req, res) => {
     let result;
     try {
         conn = await pool.getConnection();
-        result = await conn.query("INSERT INTO devices (name, category, roomId, maxPower, avgUsageHours, avgUsageMinutes) VALUES (?, ?, ?, ?, ?)",
+        result = await conn.query("INSERT INTO devices (name, category, roomId, maxPower, avgUsageHours, avgUsageMinutes) VALUES (?, ?, ?, ?, ?, ?)",
         [deviceName, deviceCategory, deviceRoom, deviceMaxPower, deviceAvgUsageHours, deviceAvgUsageMinutes]);
     } finally {
         if (conn) conn.release(); //release to pool
