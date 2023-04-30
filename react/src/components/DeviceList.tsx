@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-
-interface Device {
+import DeviceEntry from "./DeviceEntry";
+import { Grid } from "@nextui-org/react";
+export interface Device {
     id: number;
     name: string;
     category: string;
@@ -34,13 +35,13 @@ export default function deviceList() {
     return (
         <div>
             <h1>Lista urządzeń</h1>
-            <ul>
+            <Grid.Container gap={4} justify="center">
                 {devices.map((device:Device) => (
-                    <li key={device.id}>
-                        {device.name} {device.category} {device.roomName} {device.maxPower} {device.avgUsageHours} {device.avgUsageMinutes} {device.dailyPowerCost}
-                    </li>
-                ))}
-            </ul>
+                    <Grid xs={4}>
+                        <DeviceEntry device={device} />
+                    </Grid>
+                ))} 
+            </Grid.Container>
         </div>
     )
 }

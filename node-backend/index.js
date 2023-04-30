@@ -103,7 +103,7 @@ app.delete('/devices/:id', async (req, res) => {
     } finally {
         if (conn) conn.release(); //release to pool
     }
-    res.send(JSON.stringify(result));//Maybe send 204?
+    res.status(201).redirect('/devices');
 })
 
 app.get('/settings', async (req, res) => {
