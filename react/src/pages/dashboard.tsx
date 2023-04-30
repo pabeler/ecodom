@@ -35,9 +35,7 @@ export default function Dashboard() {
             <DeviceList/>
         )}
         {currentTab == "roomList" && (
-            <div>
-                Lista pokoi
-            </div>
+            <RoomList/>
         )}
         {currentTab == "settings" && (
             <Settings/>

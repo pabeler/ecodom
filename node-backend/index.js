@@ -139,7 +139,7 @@ app.get('/rooms', async (req, res) => {
     let result;
     try {
         conn = await pool.getConnection();
-        result = await conn.query("SELECT rooms.id, rooms.name, count(devices.id) as devicesCount FROM rooms INNER JOIN devices ON rooms.id = devices.roomId group by rooms.name;");
+        result = await conn.query("SELECT rooms.id, rooms.name, count(devices.id) as devicesCount FROM rooms LEFT JOIN devices ON rooms.id = devices.roomId group by rooms.name;");
     } finally {
         if (conn) conn.release(); //release to pool
     }
