@@ -1,12 +1,13 @@
-import Image from 'next/image';
+import { Image } from "@nextui-org/react";
 
 function Logo() {
     return (
         <Image
             src="/logo.svg"
-            alt="Moje zdjęcie"
+            alt="Placeholder Logo"
             width={500}
             height={300}
+            objectFit="cover"
         />
     );
 }
