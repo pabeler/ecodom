@@ -17,6 +17,7 @@ const pool = mariadb.createPool({
     database: process.env.DB_NAME,
     connectionLimit: 5
 });
+console.log(process.env.DB_HOST);
 
 // async function asyncFunction() {
 //     let conn;
@@ -159,6 +160,40 @@ app.delete('/rooms/:id', async (req, res) => {
     }
     res.status(201).redirect('/rooms');
 })
+
+app.get('/powerCost', async (req, res) => {
+
+let conn;
+    let result;
+    try {
+        conn = await pool.getConnection();
+        result = await conn.query("select * from dayConsumption order by date desc limit 30");
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+    console.log(result);
+
+
+
+    res.send(JSON.stringify(result));
+})
+app.get('/top5PowerConsumers', async (req, res) => {
+
+        let conn;
+            let result;
+            try {
+                conn = await pool.getConnection();
+                result = await conn.query("select name,maxPower*(avgUsageHours+avgUsageMinutes*100/60) Powers from devices order by Powers desc limit 5");
+            } finally {
+                if (conn) conn.release(); //release to pool
+            }
+            console.log(result);
+
+
+
+            res.send(JSON.stringify(result));
+        });
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

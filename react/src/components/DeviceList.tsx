@@ -22,7 +22,7 @@ export default function deviceList() {
     
     useEffect(() => {
         console.log("Fetching devices")
-        fetch("http://192.168.1.1:3001/devices", {
+        fetch("http://localhost:3001/devices", {
             method: "GET",
             headers: {'Content-Type': 'application/json','Accept': 'application/json'}
         })
@@ -36,6 +36,7 @@ export default function deviceList() {
             }
         )
     }, []);
+
 
     return (
         <div>

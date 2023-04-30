@@ -10,6 +10,9 @@ import AddDevice from '@/components/AddDevice';
 import DeviceList from '@/components/DeviceList';
 import MyNavbar from "@/components/MyNavbar";
 import RoomList from '@/components/RoomList';
+import MyCharts from "@/components/MyCharts";
+import {Line} from "react-chartjs-2";
+import {width} from "@mui/system";
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Dashboard() {
@@ -32,11 +35,18 @@ export default function Dashboard() {
             <DeviceList/>
         )}
         {currentTab == "roomList" && (
-            <RoomList/>
+            <div>
+                Lista pokoi
+            </div>
         )}
         {currentTab == "settings" && (
             <Settings/>
         )}
+          {currentTab == "default" && (
+              <div style={{width:'100%',height:'80vh'}}>
+                  <MyCharts/>
+              </div>
+          )}
 
         
         

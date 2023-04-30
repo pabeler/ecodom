@@ -4,7 +4,7 @@ import { Layout } from "./Layout.js";
 import NewLogo from "./NewLogo";
 import {useState} from "react";
 
-export default function MyNavbar({setCurrentTab}) {
+export default function MyNavbar({setCurrentTab}:any) {
     const router = useRouter();
     const [currentLink, setCurrentLink] = useState(0);
     const handleLinkClick = (linkIndex:number) => {
@@ -23,7 +23,7 @@ export default function MyNavbar({setCurrentTab}) {
     }
 
     return (
-        <Navbar isBordered variant="sticky">
+        <Navbar isBordered variant="sticky" maxWidth={'fluid'}>
             <Navbar.Content hideIn="xs" variant="underline">
                 <Navbar.Link isActive={currentLink===1} onClick={() => handleLinkClick(1)}>
                     Dodaj urządzenie
@@ -33,7 +33,11 @@ export default function MyNavbar({setCurrentTab}) {
                 </Navbar.Link>
             </Navbar.Content>
 
-            <Navbar.Brand>
+            <Navbar.Brand onClick={() => handleLinkClick(0)} css={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+            }}>
                 <NewLogo />
             </Navbar.Brand>
 
