@@ -9,6 +9,11 @@ export interface Room {
 
 export default function deviceList() {
     const [rooms, setRooms] = useState([]);   
+
+    const updateState = (deleted:number) => {
+        setRooms(rooms.filter((room:Room) => room.id != deleted));
+    }
+
     useEffect(() => {
         console.log("Fetching rooms")
         fetch("http://192.168.1.1:3001/rooms", {
@@ -32,7 +37,7 @@ export default function deviceList() {
             <Grid.Container gap={1} justify="center" style={{width:500}}>
                 {rooms.map((room:Room) => (
                     <Grid>
-                        <RoomEntry room={room} />
+                        <RoomEntry room={room} updateState={updateState}/>
                     </Grid>
                 ))} 
             </Grid.Container>

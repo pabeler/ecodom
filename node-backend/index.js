@@ -138,11 +138,14 @@ app.get('/rooms', async (req, res) => {
     let result;
     try {
         conn = await pool.getConnection();
-        result = await conn.query("SELECT * FROM rooms");
+        result = await conn.query("SELECT rooms.id, rooms.name, count(devices.id) as devicesCount FROM rooms INNER JOIN devices ON rooms.id = devices.roomId group by rooms.name;");
     } finally {
         if (conn) conn.release(); //release to pool
     }
-    res.json(result);
+    result.forEach(element => {
+        element.devicesCount = parseInt(element.devicesCount);
+    });
+    res.status(200).json(result);
 })
 
 app.delete('/rooms/:id', async (req, res) => {
