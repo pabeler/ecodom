@@ -2,13 +2,12 @@ import React from 'react';
 import {Button} from "@mui/material";
 import { Card, Text, Spacer } from "@nextui-org/react";
 import { Device } from './DeviceList';
-export default function deviceEntry({device}) {
+export default function deviceEntry({device, updateState}) {
     const handleDelete = () => {
         fetch("http://localhost:3001/devices/" + device.id, {
             method: "DELETE",
             headers: {'Content-Type': 'application/json','Accept': 'application/json'}
-        })
-        .then(response => response.json())
+        }).then(updateState(device.id));
     }
     return (
         <Card css={{ h: "$84", width: "500px"}}>

@@ -15,6 +15,11 @@ export interface Device {
 
 export default function deviceList() {
     const [devices, setDevices] = useState([]);   
+    
+    const updateState = (deleted:number) => {
+        setDevices(devices.filter((device:Device) => device.id != deleted));
+    }
+    
     useEffect(() => {
         console.log("Fetching devices")
         fetch("http://192.168.1.1:3001/devices", {
@@ -38,7 +43,7 @@ export default function deviceList() {
             <Grid.Container gap={4} justify="center">
                 {devices.map((device:Device) => (
                     <Grid xs={4}>
-                        <DeviceEntry device={device} />
+                        <DeviceEntry device={device} updateState={updateState} />
                     </Grid>
                 ))} 
             </Grid.Container>
