@@ -9,17 +9,29 @@ export default function addDevice() {
         let power = document.getElementById('device_power') as HTMLInputElement;
         let avg_time_hour = document.getElementById('avg_time_hour') as HTMLInputElement;
         let avg_time_minute = document.getElementById('avg_time_minutes') as HTMLInputElement;
+        let room_name = document.getElementById('room_name') as HTMLInputElement;
         if (avg_time_hour.value == "24" && avg_time_minute.value != "0") {
             alert("Niepoprawny czas użycia");
             return;
         }
         try {
+            await axios.get('http://localhost:3001/rooms/:name', {params: {name: room_name.value}})
+            alert("Pokój " + room_name.value + " już istnieje")
+        } catch (e) {
+            try {
+                await axios.post('http://localhost:3001/rooms', {name: room_name.value})
+                alert("Dodano pokój " + room_name.value)
+            } catch (e) {
+                alert("Nie udało się dodać pokoju " + room_name.value)
+            }
+        }
+        /*try {
             await axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
                 maxPower: power.value, room: "1", avgUsageHours: avg_time_hour.value, avgUsageMinutes: avg_time_minute.value})
-            console.log("Dodano urządzenie");
+            alert("Dodano urządzenie " + name.value)
         } catch (e) {
             console.log(e);
-        }
+        }*/
     };
 
     return (
@@ -34,6 +46,10 @@ export default function addDevice() {
                         <Grid xs={12}>
                             <input className={styles.formField} type="number" placeholder={"Moc urządzenia [W]"}
                                    min={"1"} id="device_power" name="device_power" required/><br/>
+                        </Grid>
+                        <Grid xs={12}>
+                            <input className={styles.formField} type="text" placeholder={"Nazwa pokoju"}
+                                   id="room_name" name="room_name" required/><br/>
                         </Grid>
                         <Grid xs={12}>
                             <Text>

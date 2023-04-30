@@ -149,12 +149,37 @@ app.get('/rooms', async (req, res) => {
     res.status(200).json(result);
 })
 
+app.get('/rooms/:name', async (req, res) => {
+    let conn;
+    let result;
+    try {
+        conn = await pool.getConnection();
+        result = await conn.query("SELECT id FROM rooms where name = ?", [req.params.name]);
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+    res.json(result);
+})
+
 app.delete('/rooms/:id', async (req, res) => {
     let conn;
     let result;
     try {
         conn = await pool.getConnection();
         result = await conn.query("DELETE FROM rooms WHERE id = ?", [req.params.id]);
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+    res.status(201).redirect('/rooms');
+})
+
+app.post('/rooms', async (req, res) => {
+    let roomName = req.body.name;
+    let conn;
+    let result;
+    try {
+        conn = await pool.getConnection();
+        result = await conn.query("INSERT INTO rooms (name) VALUES (?)", [roomName]);
     } finally {
         if (conn) conn.release(); //release to pool
     }
