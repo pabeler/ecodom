@@ -103,7 +103,7 @@ app.delete('/devices/:id', async (req, res) => {
     } finally {
         if (conn) conn.release(); //release to pool
     }
-    res.send(JSON.stringify(result));//Maybe send 204?
+    res.status(201).redirect('/devices');
 })
 
 app.get('/settings', async (req, res) => {
@@ -143,6 +143,18 @@ app.get('/rooms', async (req, res) => {
         if (conn) conn.release(); //release to pool
     }
     res.json(result);
+})
+
+app.delete('/rooms/:id', async (req, res) => {
+    let conn;
+    let result;
+    try {
+        conn = await pool.getConnection();
+        result = await conn.query("DELETE FROM rooms WHERE id = ?", [req.params.id]);
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+    res.status(201).redirect('/rooms');
 })
 
 app.listen(port, () => {

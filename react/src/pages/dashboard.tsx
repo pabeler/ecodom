@@ -9,6 +9,7 @@ import Settings from '@/components/Settings';
 import AddDevice from '@/components/AddDevice';
 import DeviceList from '@/components/DeviceList';
 import MyNavbar from "@/components/MyNavbar";
+import RoomList from '@/components/RoomList';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Dashboard() {
@@ -31,9 +32,7 @@ export default function Dashboard() {
             <DeviceList/>
         )}
         {currentTab == "roomList" && (
-            <div>
-                Lista pokoi
-            </div>
+            <RoomList/>
         )}
         {currentTab == "settings" && (
             <Settings/>
