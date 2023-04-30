@@ -1,7 +1,12 @@
 const express = require('express')
 const app = express()
 const port = 3001
+const cors = require('cors');
 require('dotenv').config();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
@@ -48,7 +53,7 @@ app.get('/devices', async (req, res) => {
     } finally {
         if (conn) conn.release(); //release to pool
     }
-    res.send(JSON.stringify(result));
+    res.status(200).json(result);
 })
 
 app.post('/devices', async (req, res) => {
@@ -137,7 +142,7 @@ app.get('/rooms', async (req, res) => {
     } finally {
         if (conn) conn.release(); //release to pool
     }
-    res.send(JSON.stringify(result));
+    res.json(result);
 })
 
 app.listen(port, () => {
