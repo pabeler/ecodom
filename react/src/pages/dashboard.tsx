@@ -8,6 +8,7 @@ import { useState } from 'react';
 import Settings from '@/components/Settings';
 import AddDevice from '@/components/AddDevice';
 import DeviceList from '@/components/DeviceList';
+import MyNavbar from "@/components/MyNavbar";
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Dashboard() {
@@ -21,12 +22,14 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+        <MyNavbar></MyNavbar>
       <main className={styles.main}>
         <div className={styles.description}>
           <p className={inter.className}>
               Projekt EcoDom+
           </p>
         </div>
+
         <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
             <Grid xs="auto">
                 <Button variant="contained" color="primary" onClick={() => setCurrentTab("addDevice")}>Dodaj urządzenie</Button>
