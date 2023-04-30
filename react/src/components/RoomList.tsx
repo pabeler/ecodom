@@ -16,7 +16,7 @@ export default function deviceList() {
 
     useEffect(() => {
         console.log("Fetching rooms")
-        fetch("http://192.168.1.1:3001/rooms", {
+        fetch("http://localhost:3001/rooms", {
             method: "GET",
             headers: {'Content-Type': 'application/json','Accept': 'application/json'}
         })

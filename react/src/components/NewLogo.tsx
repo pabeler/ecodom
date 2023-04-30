@@ -6,7 +6,7 @@ function NewLogo({props}:any) {
             src="/logo1.svg"
             alt="Moje zdjęcie"
             width={100}
-            height={100}
+            height={70}
         />
     );
 }

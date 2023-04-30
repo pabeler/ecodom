@@ -138,6 +138,7 @@ function MyCharts() {
                     };
                     setDataState(newData);
                     setAllPower(sum);
+                    setAllPowerCost(sum*0.5);
                 }
             ).catch(err => console.log(err));
 
@@ -187,9 +188,7 @@ function MyCharts() {
                         },
                     ],
                 };
-                sum*=0.5;
                 console.log(sum);
-                setAllPowerCost(sum);
                 setDataState2(newData);
             }).catch(err => console.log(err));
     }, []);
