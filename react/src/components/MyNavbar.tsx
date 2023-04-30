@@ -4,10 +4,21 @@ import { Layout } from "./Layout.js";
 import NewLogo from "./NewLogo";
 import {useState} from "react";
 
-export default function MyNavbar() {
+export default function MyNavbar({setCurrentTab}) {
     const router = useRouter();
     const [currentLink, setCurrentLink] = useState(0);
     const handleLinkClick = (linkIndex:number) => {
+        if (linkIndex == 1) {
+            setCurrentTab("addDevice");
+        } else if (linkIndex == 2) {
+            setCurrentTab("deviceList");
+        } else if (linkIndex == 3) {
+            setCurrentTab("roomList");
+        } else if (linkIndex == 4) {
+            setCurrentTab("settings");
+        } else {
+            setCurrentTab("default");
+        }
         setCurrentLink(linkIndex);
     }
 

@@ -22,7 +22,7 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-        <MyNavbar></MyNavbar>
+        <MyNavbar setCurrentTab={setCurrentTab}></MyNavbar>
       <main className={styles.main}>
         <div className={styles.description}>
           <p className={inter.className}>
@@ -30,23 +30,16 @@ export default function Dashboard() {
           </p>
         </div>
 
-        <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
-            <Grid xs="auto">
-                <Button variant="contained" color="primary" onClick={() => setCurrentTab("addDevice")}>Dodaj urządzenie</Button>
-            </Grid>
-            <Grid xs="auto">
-                <Button variant="contained" color="primary" onClick={() => setCurrentTab("deviceList")}>Lista urządzeń</Button>
-            </Grid>
-            <Grid xs="auto">
-                <Button variant="contained" color="primary" onClick={() => setCurrentTab("settings")}>Ustawienia</Button>
-            </Grid>
-        </Grid>
-
         {currentTab == "addDevice" && (
             <AddDevice/>
         )}
         {currentTab == "deviceList" && (
             <DeviceList/>
+        )}
+        {currentTab == "roomList" && (
+            <div>
+                Lista pokoi
+            </div>
         )}
         {currentTab == "settings" && (
             <Settings/>
