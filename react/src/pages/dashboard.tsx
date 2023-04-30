@@ -24,12 +24,6 @@ export default function Dashboard() {
       </Head>
         <MyNavbar setCurrentTab={setCurrentTab}></MyNavbar>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <p className={inter.className}>
-              Projekt EcoDom+
-          </p>
-        </div>
-
         {currentTab == "addDevice" && (
             <AddDevice/>
         )}
