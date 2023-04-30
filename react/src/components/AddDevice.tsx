@@ -15,15 +15,25 @@ export default function addDevice() {
             return;
         }
         try {
-            await axios.get('http://localhost:3001/rooms/:name', {params: {name: room_name.value}})
-            alert("Pokój " + room_name.value + " już istnieje")
+            axios.get(`http://localhost:3001/rooms/${room_name.value}`)
+            .then((response) => {
+                console.log(response.data[0])
+                if(response?.data[0]?.id){
+                    // alert("Pokój " + room_name.value + " już istnieje")
+                } else {
+                    axios.post('http://localhost:3001/rooms', {name: room_name.value}).then(() =>{
+                        alert("Dodano pokój " + room_name.value)
+                    })
+                }
+                return response.data[0].id;
+            }).then((id) => {
+                axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
+                    maxPower: power.value, room: id, avgUsageHours: avg_time_hour.value, avgUsageMinutes: avg_time_minute.value}).then(() => {
+                alert("Dodano urządzenie " + name.value)
+                })
+            })
         } catch (e) {
-            try {
-                await axios.post('http://localhost:3001/rooms', {name: room_name.value})
-                alert("Dodano pokój " + room_name.value)
-            } catch (e) {
-                alert("Nie udało się dodać pokoju " + room_name.value)
-            }
+            alert("Nie udało się dodać pokoju " + room_name.value)
         }
         /*try {
             await axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
