@@ -145,6 +145,18 @@ app.get('/rooms', async (req, res) => {
     res.json(result);
 })
 
+app.delete('/rooms/:id', async (req, res) => {
+    let conn;
+    let result;
+    try {
+        conn = await pool.getConnection();
+        result = await conn.query("DELETE FROM rooms WHERE id = ?", [req.params.id]);
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+    res.status(201).redirect('/rooms');
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
