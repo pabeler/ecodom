@@ -215,8 +215,8 @@ function MyCharts() {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col style={{ height: "100%", width: "50%" }}>
-                    <Card variant={'bordered'} style={{width:'70%'}} className="mx-auto float-end">
+                <Col style={{ height: "100%", width: "50%",display:'flex', justifyContent:'right'} }>
+                    <Card variant={'bordered'} style={{width:'70%',alignItems:'self-end'}} className="mx-auto float-end">
                         <Card.Body>
                             <Text size={'$4xl'}>Koszt prądu w ciągu ostatnich 30 dni</Text>
                             <Text size={'$xl'}>{allPowerCost} zł</Text>
