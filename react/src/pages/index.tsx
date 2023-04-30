@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import {Button, TextField} from '@mui/material';
+import Logo from "@/components/Logo";
+import {padding} from "@mui/system";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,15 +26,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
+      <main className={styles.main} style={{padding: 0}}>
+          <div>
+              <Logo />
+          </div>
+        {/*<div className={styles.description}>
           <p className={inter.className}>
               Projekt EcoDom+
           </p>
-        </div>
+        </div>*/}
 
-        <div className={styles.center}>
-          
+        <div>
             <form className={styles.form}>
               <div className={styles.formGroup}>
                 <input className={styles.formField} type="email" id="email" name="email" placeholder='Adres email' /><br /> 
@@ -40,7 +44,7 @@ export default function Home() {
                 <Button variant="contained" onClick={login}>Login</Button>
               </div>
             </form>
-          </div>
+        </div>
         
       </main>
     </>

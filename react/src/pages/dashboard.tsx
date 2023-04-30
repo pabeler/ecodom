@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import {Button, TextField, Item} from '@mui/material';
+import {Button, TextField} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { useState } from 'react';
 import Settings from '@/components/Settings';
