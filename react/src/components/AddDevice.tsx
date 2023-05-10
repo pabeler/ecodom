@@ -74,7 +74,7 @@ export default function addDevice() {
                             <input className={styles.formField} type="number" id="avg_time_minutes" name="avg_time_minutes"
                                    placeholder={"min"} min={0} max={59} required/>
                         </Grid>
-                        <Grid xs={12}>
+                        <Grid xs={12} justify={'center'}>
                             <Button variant="contained" onClick={add}>Dodaj urzadzenie</Button>
                         </Grid>
                     </Grid.Container>
