@@ -161,6 +161,18 @@ app.get('/rooms/:name', async (req, res) => {
     res.json(result);
 })
 
+app.get('/rooms/devices/:id', async (req, res) => {
+    let conn;
+    let result;
+    try {
+        conn = await pool.getConnection();
+        result = await conn.query("SELECT * FROM devices where roomId = ?", [req.params.id]);
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+    res.json(result);
+})
+
 app.delete('/rooms/:id', async (req, res) => {
     let conn;
     let result;
@@ -192,7 +204,7 @@ let conn;
     let result;
     try {
         conn = await pool.getConnection();
-        result = await conn.query("select * from dayConsumption order by date desc limit 30");
+        result = await conn.query("select * from dayConsumption order by date asc limit 30");
     } finally {
         if (conn) conn.release(); //release to pool
     }
