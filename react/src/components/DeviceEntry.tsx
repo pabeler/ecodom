@@ -2,7 +2,7 @@ import React from 'react';
 import {Button} from "@mui/material";
 import { Card, Text, Spacer } from "@nextui-org/react";
 import { Device } from './DeviceList';
-export default function deviceEntry({device, updateState}) {
+export default function deviceEntry({device, updateState}:any) {
     const handleDelete = () => {
         fetch("http://localhost:3001/devices/" + device.id, {
             method: "DELETE",

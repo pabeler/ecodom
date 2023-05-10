@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {Bar, Line} from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
-import {Col, Container, Grid, Row,Card,Text} from "@nextui-org/react";
+import {Col, Container, Grid, Row, Card, Text, Spacer} from "@nextui-org/react";
 import dateformat from 'dateformat';
 
 Chart.register(...registerables);
@@ -205,23 +205,25 @@ function MyCharts() {
 
                 </Col>
             </Row>
-            <Row style={{ height: "20%", width: "100%" }}>
-                <Col style={{ height: "100%", width: "50%" }}>
-                    <Card variant={'bordered'} style={{width:'70%'}} className="mx-auto">
-                        <Card.Body>
-                            <Text size={'$4xl'}>Zużycie w ciągu ostatnich 30 dni</Text>
-                            <Text size={'$xl'}>{allPower} kW/h</Text>
-                        </Card.Body>
-                    </Card>
+            <Row style={{ height: "10%", width: "100%" }}>
+                <Col style={{ height: "100%", width: "50%", display:'flex'}}>
+                    <Text size={'$4xl'}>Zużycie w ciągu ostatnich 30 dni</Text>
                 </Col>
                 <Col style={{ height: "100%", width: "50%",display:'flex', justifyContent:'right'} }>
-                    <Card variant={'bordered'} style={{width:'70%',alignItems:'self-end'}} className="mx-auto float-end">
-                        <Card.Body>
-                            <Text size={'$4xl'}>Koszt prądu w ciągu ostatnich 30 dni</Text>
-                            <Text size={'$xl'}>{allPowerCost} zł</Text>
-                        </Card.Body>
-                    </Card>
+
+                    <Text size={'$4xl'}>Koszt prądu w ciągu ostatnich 30 dni</Text>
+
                 </Col>
+            </Row>
+            <Row style={{ height: "10%", width: "100%" }}>
+                <Col style={{ height: "100%", width: "50%", display:'flex'}}>
+                    <Text size={'$xl'}>{allPower} kW/h</Text>
+                </Col>
+                <Col style={{ height: "100%", width: "50%",display:'flex', justifyContent:'right'} }>
+                    <Text size={'$xl'}>{allPowerCost} zł</Text>
+
+                </Col>
+
             </Row>
 
 
