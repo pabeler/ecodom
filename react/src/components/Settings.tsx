@@ -66,7 +66,7 @@ export default function settings() {
             <Text css={{textAlign:'center'}} h1>Ustawienia</Text>
             <Row>
                 <Col>
-                    <Switch checked={isOn==='false'} onChange={setIsOnI}></Switch>
+                    <Switch checked={isOn==='true'} onChange={setIsOnI}></Switch>
 
 
                 </Col>
