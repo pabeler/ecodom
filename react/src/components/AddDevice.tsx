@@ -1,6 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import {Button} from "@mui/material";
-import { Grid, Text } from '@nextui-org/react';
+import {Grid, Input, Text} from '@nextui-org/react';
 import axios from "axios";
 
 export default function addDevice() {
@@ -35,17 +35,11 @@ export default function addDevice() {
         } catch (e) {
             alert("Nie udało się dodać pokoju " + room_name.value)
         }
-        /*try {
-            await axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
-                maxPower: power.value, room: "1", avgUsageHours: avg_time_hour.value, avgUsageMinutes: avg_time_minute.value})
-            alert("Dodano urządzenie " + name.value)
-        } catch (e) {
-            console.log(e);
-        }*/
     };
 
     return (
         <div>
+            <h1>Dodaj urządzenie</h1>
             <form className={styles.form}>
                 <div className={styles.formGroup}>
                     <Grid.Container gap={1} style={{width: 300}}>
