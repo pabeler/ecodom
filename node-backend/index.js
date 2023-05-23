@@ -120,13 +120,16 @@ app.get('/settings', async (req, res) => {
 })
 
 app.post('/settings', async (req, res) => {
-    let settingName = req.body.name;
-    let settingValue = req.body.value;
+    let settingName = req.body.settingName;
+    let settingValue = req.body.settingValue;
+    let batteryCapacity = req.body.batteryCapacity;
+    let panelSurface = req.body.panelSurface;
+    let isOn= req.body.isOn.toString();
     let conn;
     let result;
     try {
         conn = await pool.getConnection();
-        result = await conn.query("REPLACE INTO settings (name, value) VALUES (?, ?)", [settingName, settingValue]);
+        result = await conn.query("REPLACE INTO settings (settingName, settingValue, battery_capacity,panel_surface,panelOn) VALUES (?, ?, ?, ?, ?)", [settingName, settingValue, batteryCapacity, panelSurface,isOn]);
     } finally {
         if (conn) conn.release(); //release to pool
     }
