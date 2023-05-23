@@ -66,7 +66,7 @@ const options = {
         },
         title: {
             display: true,
-            text: 'Wykres zużytej energii przez ostatnie 30 dni',
+            text: 'Wykres zużytej energii przez ostatnie 30 dni (kW/h)',
             font: {
                 size: 20,
             },
@@ -89,7 +89,7 @@ const options2 = {
         },
         title: {
             display: true,
-            text: 'Wykres 5 największych konsumentów energii',
+            text: 'Wykres 5 największych konsumentów energii (kW/h)',
             font: {
                 size: 20,
             },
@@ -105,6 +105,27 @@ function MyCharts() {
     const [optionsState2, setOptionsState2] = useState(options2);
     const [allPower, setAllPower] = useState(0);
     const [allPowerCost, setAllPowerCost] = useState(0);
+
+    const [panelSurface, setPanelSurface] = useState(0);
+    const [panelPower, setPanelPower] = useState(0);
+    const [powerCostS, setPowerCostS] = useState(0.5);
+    const [isOn, setIsOn] = useState(false);
+
+
+
+    useEffect(() => {
+        fetch("http://localhost:3001/settings", {
+            method: "GET",
+            headers: {'Content-Type': 'application/json','Accept': 'application/json'}
+        })
+            .then(response => response.json())
+            .then(data => {
+                setPowerCostS(data[0].settingValue);
+                setPanelSurface(data[0].panel_surface);
+                setPanelPower(data[0].battery_capacity);
+                setIsOn(data[0].panelOn);
+
+    })}, []);
 
     useEffect(() => {
         fetch('http://localhost:3001/powerCost', {
@@ -137,13 +158,19 @@ function MyCharts() {
                         ],
                     };
                     setDataState(newData);
+                    if(isOn==='true')
+                        sum=sum - panelPower/1000* 0.83*6*newLabels.length;
+
+
+                    sum=sum*-1;
                     setAllPower(sum);
-                    setAllPowerCost(sum*0.5);
+
+                    setAllPowerCost(sum*powerCostS);
                 }
             ).catch(err => console.log(err));
 
 
-    }, []);
+    }, [powerCostS,isOn]);
     useEffect(() => {
         fetch("http://localhost:3001/top5PowerConsumers", {
             method: "GET",

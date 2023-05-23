@@ -223,7 +223,7 @@ app.get('/top5PowerConsumers', async (req, res) => {
             let result;
             try {
                 conn = await pool.getConnection();
-                result = await conn.query("select name,maxPower*(avgUsageHours+avgUsageMinutes/60) Powers from devices order by Powers desc limit 5");
+                result = await conn.query("select name,maxPower*(avgUsageHours+avgUsageMinutes/60)/1000 Powers from devices order by Powers desc limit 5");
             } finally {
                 if (conn) conn.release(); //release to pool
             }

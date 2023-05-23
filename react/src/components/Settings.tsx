@@ -71,7 +71,7 @@ export default function settings() {
 
                 </Col>
                 <Col>
-                    <Input clearable label={'Koszt prądu'} initialValue={powerCost} onChange={setPowerCostI}></Input>
+                    <Input clearable label={'Koszt prądu (kW/h)'} initialValue={powerCost} onChange={setPowerCostI}></Input>
 
                 </Col>
 
@@ -79,7 +79,7 @@ export default function settings() {
             </Row>
             <Row>
                 <Col>
-                    <Input clearable label={'Powierzchnia paneli'} initialValue={panelArea} onChange={setPanelAreaI}></Input>
+                    {/*<Input clearable label={'Powierzchnia paneli (m^2)'} initialValue={panelArea} onChange={setPanelAreaI}></Input>*/}
 
 
                 </Col>
@@ -88,7 +88,7 @@ export default function settings() {
             </Row>
             <Row>
                 <Col>
-                    <Input clearable label={'Pojemność paneli'} initialValue={panelCapacity} onChange={setPanelCapacityI}></Input>
+                    <Input clearable label={'Moc paneli (W)'} initialValue={panelCapacity} onChange={setPanelCapacityI}></Input>
                 </Col>
             </Row>
 
