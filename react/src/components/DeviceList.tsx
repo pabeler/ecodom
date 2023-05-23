@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import DeviceEntry from "./DeviceEntry";
-import { Grid } from "@nextui-org/react";
+import { Grid, Spacer } from "@nextui-org/react";
+import { Dropdown, Row } from "@nextui-org/react";
+import React from "react";
 export interface Device {
     id: number;
     name: string;
@@ -14,8 +16,17 @@ export interface Device {
 
 
 export default function deviceList() {
-    const [devices, setDevices] = useState([]);   
+    const [devices, setDevices] = useState([]);
+    const [allRooms, setRooms] = useState(["Wszystkie"]); // ["Pokój 1", "Pokój 2", "Pokój 3"
     
+    const [selected, setSelected] = React.useState(new Set(["Wszystkie"]));
+    const selectedValue = React.useMemo(
+        () => Array.from(selected).join(", ").replaceAll("_", " "),
+        [selected]
+    );
+    const [devicesCopy, setDevicesCopy] = useState([]);
+    
+
     const updateState = (deleted:number) => {
         setDevices(devices.filter((device:Device) => device.id != deleted));
     }
@@ -30,6 +41,14 @@ export default function deviceList() {
         .then(
             (result) => {
                 setDevices(result);
+                let rooms:any = ["Wszystkie"];
+                for (let i = 0; i < result.length; i++) {
+                    if (!rooms.includes(result[i].roomName) && result[i].roomName != null) {
+                        rooms.push(result[i].roomName);
+                    }
+                }
+                setRooms(rooms);
+                setDevicesCopy(result);
             },
             (error) => {
                 console.log(error);
@@ -38,9 +57,32 @@ export default function deviceList() {
     }, []);
 
 
+    useEffect(() => {
+        selectedValue === "Wszystkie" ? setDevices(devicesCopy) : setDevices(devicesCopy.filter((device:Device) => device.roomName === selectedValue));
+    }, [selectedValue]);
+
+
+
     return (
         <div>
-            <h1>Lista urządzeń</h1>
+            <Row align="center">
+                <h1>Lista urządzeń</h1> 
+                <Spacer x={1} />
+                <Dropdown>
+                    <Dropdown.Button flat>{selectedValue}</Dropdown.Button>
+                    <Dropdown.Menu 
+                        aria-label="Single selection actions"
+                        color="secondary"
+                        disallowEmptySelection
+                        selectionMode="single"
+                        selectedKeys={selected}
+                        onSelectionChange={setSelected}>
+                        {allRooms.map((room:string) => (
+                            <Dropdown.Item key={room}>{room}</Dropdown.Item>
+                        ))}             
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Row>
             <Grid.Container gap={4} justify="center">
                 {devices.map((device:Device) => (
                     <Grid xs={4}>
