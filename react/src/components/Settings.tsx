@@ -64,38 +64,36 @@ export default function settings() {
     return (
         <Container fluid justify={"center"} css={{justifyContent:'center',display:'flex'}} >
             <Text css={{textAlign:'center'}} h1>Ustawienia</Text>
-            <Row>
-                <Col>
+            <Grid.Container gap={2} justify="center">
+                <Grid xs={6}>
+                    <Text css={{textAlign:'center'}} h2>Fotowoltaika</Text>
+                </Grid>
+                <Grid xs={6}>
+                    <Text css={{
+                        marginLeft: 'auto',
+                    }} h2>Wybór taryfy</Text>
+                </Grid>
+                <Grid xs={6}>
                     <Switch checked={isOn==='true'} onChange={setIsOnI}></Switch>
-
-
-                </Col>
-                <Col>
-                    <Input clearable label={'Koszt prądu (kW/h)'} initialValue={powerCost} onChange={setPowerCostI}></Input>
-
-                </Col>
-
-
-            </Row>
-            <Row>
-                <Col>
-                    {/*<Input clearable label={'Powierzchnia paneli (m^2)'} initialValue={panelArea} onChange={setPanelAreaI}></Input>*/}
-
-
-                </Col>
-
-
-            </Row>
-            <Row>
-                <Col>
+                </Grid>
+                <Grid xs={6}></Grid>
+                <Grid xs={6}>
                     <Input clearable label={'Moc paneli (W)'} initialValue={panelCapacity} onChange={setPanelCapacityI}></Input>
-                </Col>
-            </Row>
-
-            <Button css={{justifySelf:'center'}} onPressEnd={saveSettings}> Zapisz Zmiany</Button>
-
-
-
+                </Grid>
+                <Grid xs={6}>
+                    <Input css={{
+                        marginLeft: 'auto',
+                    }} clearable label={'Koszt prądu (kW/h)'} initialValue={powerCost} onChange={setPowerCostI}></Input>
+                </Grid>
+                <Grid xs={4}></Grid>
+                <Grid xs={4}>
+                    <Button css={{
+                        display: 'block',
+                        margin: '0 auto',
+                    }} onPressEnd={saveSettings}> Zapisz Zmiany</Button>
+                </Grid>
+                <Grid xs={4}></Grid>
+            </Grid.Container>
         </Container>
     )
 }
