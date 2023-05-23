@@ -17,7 +17,7 @@ export default function deviceEntry({device, updateState}:any) {
             <Text h5>Pokój: {device.roomName}</Text>
             <Text h5>Maksymalna moc: {device.maxPower}W</Text>
             <Text h5>Średni czas użycia: {device.avgUsageHours}h {device.avgUsageMinutes}m</Text>
-            <Text h5>Dzienny koszt: {device.dailyPowerCost}zł</Text>
+            <Text h5>Dzienny koszt: {device.dailyPowerCost.toFixed(2)}zł</Text>
             <Button variant="contained" onClick={handleDelete}>Usuń</Button>
         </Card.Body>
         </Card>
