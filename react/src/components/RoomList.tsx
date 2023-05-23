@@ -33,8 +33,8 @@ export default function deviceList() {
 
     return (
         <div>
-            <h1>Lista pokoi</h1>
             <Grid.Container gap={1} justify="center" style={{width:500}}>
+                <h1>Lista pokoi</h1>
                 {rooms.map((room:Room) => (
                     <Grid>
                         <RoomEntry room={room} updateState={updateState}/>
