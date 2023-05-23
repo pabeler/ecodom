@@ -40,6 +40,7 @@ export default function deviceList() {
         .then(response => response.json())
         .then(
             (result) => {
+                result.dailyPowerCost = Math.round(result.dailyPowerCost, 2);
                 setDevices(result);
                 let rooms:any = ["Wszystkie"];
                 for (let i = 0; i < result.length; i++) {
@@ -65,12 +66,12 @@ export default function deviceList() {
 
     return (
         <div>
-            <Row align="center">
-                <h1>Lista urządzeń</h1> 
+            <Row align="center" justify={"space-between"}>
+                <h1>Lista urządzeń</h1>
                 <Spacer x={1} />
                 <Dropdown>
                     <Dropdown.Button flat>{selectedValue}</Dropdown.Button>
-                    <Dropdown.Menu 
+                    <Dropdown.Menu
                         aria-label="Single selection actions"
                         color="secondary"
                         disallowEmptySelection
@@ -79,12 +80,13 @@ export default function deviceList() {
                         onSelectionChange={setSelected}>
                         {allRooms.map((room:string) => (
                             <Dropdown.Item key={room}>{room}</Dropdown.Item>
-                        ))}             
+                        ))}
                     </Dropdown.Menu>
                 </Dropdown>
             </Row>
             <Grid.Container gap={4} justify="center">
                 {devices.map((device:Device) => (
+                    // device.dailyPowerCost = Math.round(device.dailyPowerCost * 100) / 100;
                     <Grid xs={4}>
                         <DeviceEntry device={device} updateState={updateState} />
                     </Grid>
