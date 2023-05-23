@@ -244,10 +244,10 @@ function MyCharts() {
             </Row>
             <Row style={{ height: "10%", width: "100%" }}>
                 <Col style={{ height: "100%", width: "50%", display:'flex'}}>
-                    <Text size={'$xl'}>{allPower} kW/h</Text>
+                    <Text size={'$xl'}>{allPower.toFixed(0)} kW/h</Text>
                 </Col>
                 <Col style={{ height: "100%", width: "50%",display:'flex', justifyContent:'right'} }>
-                    <Text size={'$xl'}>{allPowerCost} zł</Text>
+                    <Text size={'$xl'}>{allPowerCost.toFixed(2)} zł</Text>
 
                 </Col>
 

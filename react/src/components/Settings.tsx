@@ -1,6 +1,6 @@
 import { use, useEffect, useState } from "react"
-import {Grid, Switch,Input,Text,Container,Col,Row,Button} from "@nextui-org/react";
-
+import {Grid, Switch,Input,Text,Container,Button, Dropdown} from "@nextui-org/react";
+import React from "react";
 
 
 
@@ -10,6 +10,13 @@ export default function settings() {
     const [panelArea, setPanelArea] = useState('');
     const [panelCapacity, setPanelCapacity] = useState('');
     const [isOn, setIsOn] = useState('false');
+
+    const [selected, setSelected] = React.useState(new Set(["Taryfa"]));
+    const selectedValue = React.useMemo(
+        () => Array.from(selected).join(", ").replaceAll("_", " "),
+        [selected]
+    );
+
     function saveSettings() {
         fetch("http://localhost:3001/settings", {
             method: "POST",
@@ -26,7 +33,13 @@ export default function settings() {
     }
 
     const setPowerCostI = (e:any) => {
-        setPowerCost(e.target.value)
+        if (e === 'G11') {
+            setPowerCost('0.77')
+        } else if (e === 'G12') {
+            setPowerCost('0.89')
+        } else if (e === 'G12W') {
+            setPowerCost('0.95')
+        }
     }
 
     const setPanelCapacityI = (e:any) => {
@@ -76,14 +89,33 @@ export default function settings() {
                 <Grid xs={6}>
                     <Switch checked={isOn==='true'} onChange={setIsOnI}></Switch>
                 </Grid>
-                <Grid xs={6}></Grid>
+                <Grid xs={6}>
+                    <Dropdown>
+                        <Dropdown.Button flat css={{
+                            marginLeft: 'auto',
+                        }}>{selectedValue}</Dropdown.Button>
+                        <Dropdown.Menu
+                            aria-label="Single selection actions"
+                            color="secondary"
+                            disallowEmptySelection
+                            selectionMode="single"
+                            selectedKeys={selected}
+                            onAction={setPowerCostI}
+                            onSelectionChange={setSelected}>
+                            <Dropdown.Item key="G11">Taryfa G11</Dropdown.Item>
+                            <Dropdown.Item key="G12">Taryfa G12</Dropdown.Item>
+                            <Dropdown.Item key="G12W">Taryfa G12W</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Grid>
                 <Grid xs={6}>
                     <Input clearable label={'Moc paneli (W)'} initialValue={panelCapacity} onChange={setPanelCapacityI}></Input>
                 </Grid>
                 <Grid xs={6}>
-                    <Input css={{
+                    {/*<Input css={{
                         marginLeft: 'auto',
-                    }} clearable label={'Koszt prądu (kW/h)'} initialValue={powerCost} onChange={setPowerCostI}></Input>
+                    }} clearable label={'Koszt prądu (kW/h)'} initialValue={powerCost} onChange={setPowerCostI}></Input>*/}
+                    {/*<p>Wybrana taryfa: {powerCost}</p>*/}
                 </Grid>
                 <Grid xs={4}></Grid>
                 <Grid xs={4}>
