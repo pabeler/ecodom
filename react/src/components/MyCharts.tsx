@@ -109,7 +109,8 @@ function MyCharts() {
     const [panelSurface, setPanelSurface] = useState(0);
     const [panelPower, setPanelPower] = useState(0);
     const [powerCostS, setPowerCostS] = useState(0.5);
-    const [isOn, setIsOn] = useState(false);
+    const [isOn, setIsOn] = useState('false');
+    const [settings, setSettings] = useState({powerCost: 0.5, panelSurface: 0, panelPower: 0, isOn: 'false'});
 
 
 
@@ -124,6 +125,8 @@ function MyCharts() {
                 setPanelSurface(data[0].panel_surface);
                 setPanelPower(data[0].battery_capacity);
                 setIsOn(data[0].panelOn);
+                setSettings({powerCost: data[0].settingValue, panelSurface: data[0].panel_surface, panelPower: data[0].battery_capacity, isOn: data[0].panelOn});
+
 
     })}, []);
 
@@ -140,7 +143,6 @@ function MyCharts() {
             .then(response => response.json())
             .then(
                 data => {
-                    console.log(data)
                     const newLabels = [];
                     const newDatasets = [];
                     let sum=0;
@@ -159,25 +161,40 @@ function MyCharts() {
                     };
                     setDataState(newData);
                     if(isOn==='true')
-                        sum=sum - panelPower/1000* 0.83*6*newLabels.length;
+                        sum=sum - settings.panelPower/1000* 0.83*6*newLabels.length;
 
 
                     sum=sum*-1;
                     setAllPower(sum);
 
-                    setAllPowerCost(sum*powerCostS);
+                    setAllPowerCost(sum*settings.powerCost);
+                    console.log(sum);
+                    console.log(powerCostS);
                 }
             ).catch(err => console.log(err));
 
 
-    }, [powerCostS,isOn]);
+    }, [settings]);
+
+
+
+    // useEffect(() => {
+    //     if(isOn==='true')
+    //     {
+    //         console.log("datasets "+ dataState.datasets[0].data.length);
+    //         setAllPower(allPower - panelPower/1000* 0.83*6*dataState.datasets[0].data.length);
+    //         setAllPowerCost((allPower - panelPower/1000* 0.83*6*dataState.datasets[0].data.length)*powerCostS);
+    //     }
+    //
+    // },[powerCostS,isOn,panelPower,panelSurface]);
+
+
     useEffect(() => {
         fetch("http://localhost:3001/top5PowerConsumers", {
             method: "GET",
             headers: {'Content-Type': 'application/json','Accept': 'application/json'}
         }).then(response => response.json())
             .then(data => {
-                console.log(data);
                 const newLabels = [];
                 const newDatasets = [];
                 let sum=0;
@@ -185,7 +202,6 @@ function MyCharts() {
                     newLabels.push(data[i].name);
                     newDatasets.push(data[i].Powers);
                     sum+=parseFloat(data[i].Powers);
-                    console.log(sum);
                 }
 
                 const newData = {
@@ -215,7 +231,6 @@ function MyCharts() {
                         },
                     ],
                 };
-                console.log(sum);
                 setDataState2(newData);
             }).catch(err => console.log(err));
     }, []);

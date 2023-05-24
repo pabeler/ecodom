@@ -66,11 +66,7 @@ export default function settings() {
             setPanelArea(data[0].panel_surface);
             setPanelCapacity(data[0].battery_capacity);
             setIsOn(data[0].panelOn);
-            console.log("powerCost: " + data[0].settingValue)
-            console.log("panelArea: " + data[0].panel_surface)
-            console.log("panelCapacity: " + data[0].battery_capacity)
-            console.log("isOn: " + data[0].panelOn)
-            console.log(data);
+
         })
     }, [])
 
