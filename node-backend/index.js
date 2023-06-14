@@ -65,6 +65,10 @@ app.post('/devices', async (req, res) => {
     let deviceAvgUsageHours= req.body.avgUsageHours;
     let deviceAvgUsageMinutes = req.body.avgUsageMinutes;
     let conn;
+    if(req.body.avgUsageMinutes===''||req.body.maxPower===""||req.body.name===""||req.body.avgUsageHours===""||req.body.room===""||req.body.category==="") {
+        res.sendStatus(403);
+        return;
+    }
     let result;
     try {
         conn = await pool.getConnection();
@@ -84,6 +88,10 @@ app.post('/devices/:id', async (req, res) => {
     let deviceAvgUsageHours= req.body.avgUsageHours;
     let deviceAvgUsageMinutes = req.body.avgUsageMinutes;
     let conn;
+    if(req.body.avgUsageMinutes===''||req.body.maxPower===""||req.body.name===""||req.body.avgUsageHours===""||req.body.room===""||req.body.category==="") {
+        res.sendStatus(403);
+        return;
+    }
     let result;
     try {
         conn = await pool.getConnection();

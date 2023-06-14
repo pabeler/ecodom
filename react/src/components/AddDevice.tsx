@@ -33,7 +33,9 @@ export default function addDevice() {
                     axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
                     maxPower: power.value, room: id, avgUsageHours: avg_time_hour.value, avgUsageMinutes: avg_time_minute.value}).then(() => {
                     alert("Dodano urządzenie " + name.value)
-                    })
+                    }).catch((error)=>{
+                        alert("Nie udało się dodać pokoju");
+                    });
                 })
             })
         } catch (e) {
