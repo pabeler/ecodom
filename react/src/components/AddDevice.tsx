@@ -16,20 +16,24 @@ export default function addDevice() {
         }
         try {
             axios.get(`http://localhost:3001/rooms/${room_name.value}`)
-            .then((response) => {
+            .then(async (response) => {
                 console.log(response.data[0])
                 if(response?.data[0]?.id){
                     // alert("Pokój " + room_name.value + " już istnieje")
                 } else {
-                    axios.post('http://localhost:3001/rooms', {name: room_name.value}).then(() =>{
+                    await axios.post('http://localhost:3001/rooms', {name: room_name.value}).then(() =>{
                         alert("Dodano pokój " + room_name.value)
                     })
                 }
-                return response.data[0].id;
-            }).then((id) => {
-                axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
+            }).then(async () =>{
+                console.log(room_name.value)
+                await axios.get(`http://localhost:3001/rooms/${room_name.value}`).then((response) => {
+                    console.log(response)
+                    let id = response.data[0].id;
+                    axios.post('http://localhost:3001/devices', {name: name.value, category: "costam",
                     maxPower: power.value, room: id, avgUsageHours: avg_time_hour.value, avgUsageMinutes: avg_time_minute.value}).then(() => {
-                alert("Dodano urządzenie " + name.value)
+                    alert("Dodano urządzenie " + name.value)
+                    })
                 })
             })
         } catch (e) {
